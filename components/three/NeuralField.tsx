@@ -48,13 +48,13 @@ function NetworkNodes({ count = 80 }: { count: number }) {
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
-  useFrame((state, delta) => {
+  useFrame((_state, _delta) => {
     // Smooth dampening for mouse
     mouse.current.x += (mouse.current.targetX - mouse.current.x) * 0.05;
     mouse.current.y += (mouse.current.targetY - mouse.current.y) * 0.05;
 
     // Slow orbital rotation
-    const time = state.clock.getElapsedTime();
+    const time = performance.now() * 0.001;
     if (pointsRef.current) {
       pointsRef.current.rotation.y = time * 0.05 + mouse.current.x * 0.4;
       pointsRef.current.rotation.x = Math.sin(time * 0.03) * 0.1 - mouse.current.y * 0.3;
